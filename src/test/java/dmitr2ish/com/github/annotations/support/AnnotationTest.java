@@ -1,12 +1,15 @@
 package dmitr2ish.com.github.annotations.support;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoRule;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,10 +18,17 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+//we have three case of mock init:
+// 1 - via @RunWith(MockitoJUnitRunner.class)
+// 2 - via  MockitoAnnotations.initMocks(this)
+// 3 - via @Rule MockitoJUnit.rule();
+
 //if we use initMocks we can delete this annotation
 // @RunWith(MockitoJUnitRunner.class)//extension for mock's annotation use
 public class AnnotationTest {
 
+    @Rule//must be public
+    public MockitoRule mockitoRule = MockitoJUnit.rule();//provide check our annotations
 
     @InjectMocks//here we point where we want to inject our mock's dependency
     private SBookService bookService;
@@ -26,10 +36,10 @@ public class AnnotationTest {
     @Mock//dependency of test class
     private SBookRepository bookRepository;
 
-    @Before
-    public void beforeEach() {
-        MockitoAnnotations.initMocks(this);
-    }
+//    @Before
+//    public void beforeEach() {
+//        MockitoAnnotations.initMocks(this);
+//    }
 
     @Test
     public void demoCreateMocksUsingAnnotations() {
