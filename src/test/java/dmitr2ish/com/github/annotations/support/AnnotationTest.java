@@ -1,9 +1,11 @@
 package dmitr2ish.com.github.annotations.support;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDate;
@@ -13,7 +15,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)//extension for mock's annotation use
+//if we use initMocks we can delete this annotation
+// @RunWith(MockitoJUnitRunner.class)//extension for mock's annotation use
 public class AnnotationTest {
 
 
@@ -22,6 +25,11 @@ public class AnnotationTest {
 
     @Mock//dependency of test class
     private SBookRepository bookRepository;
+
+    @Before
+    public void beforeEach() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void demoCreateMocksUsingAnnotations() {
